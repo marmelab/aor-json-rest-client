@@ -63,6 +63,10 @@ export default (data, loggingEnabled = false) => {
         case GET_MANY:
             return restServer.getAll(resource, { filter: { id: params.ids } });
         case GET_MANY_REFERENCE: {
+            if (!query.pagination && !query.sort) {
+                // FIXME remove condition once aor 0.8 is released
+                return restServer.getAll(resource, { filter: { [params.target]: params.id } });
+            }
             const { page, perPage } = params.pagination;
             const { field, order } = params.sort;
             const query = {
