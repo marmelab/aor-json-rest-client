@@ -59,14 +59,10 @@ export default (data, loggingEnabled = false) => {
             };
         }
         case GET_ONE:
-            return restServer.getOne(resource, params.id, { ...params });
+            return { data: restServer.getOne(resource, params.id, { ...params }) };
         case GET_MANY:
-            return restServer.getAll(resource, { filter: { id: params.ids } });
+            return { data: restServer.getAll(resource, { filter: { id: params.ids } }) };
         case GET_MANY_REFERENCE: {
-            if (!params.pagination && !params.sort) {
-                // FIXME remove condition once aor 0.8 is released
-                return restServer.getAll(resource, { filter: { [params.target]: params.id } });
-            }
             const { page, perPage } = params.pagination;
             const { field, order } = params.sort;
             const query = {
@@ -74,14 +70,17 @@ export default (data, loggingEnabled = false) => {
                 range: [(page - 1) * perPage, (page * perPage) - 1],
                 filter: { ...params.filter, [params.target]: params.id },
             };
-            return restServer.getAll(resource, query);
+            return {
+                data: restServer.getAll(resource, query),
+                total: restServer.getCount(resource, { filter: query.filter }),
+            };
         }
         case UPDATE:
-            return restServer.updateOne(resource, params.id, { ...params.data });
+            return { data: restServer.updateOne(resource, params.id, { ...params.data }) };
         case CREATE:
-            return restServer.addOne(resource, { ...params.data });
+            return { data: restServer.addOne(resource, { ...params.data }) };
         case DELETE:
-            return restServer.removeOne(resource, params.id);
+            return { data: restServer.removeOne(resource, params.id) };
         default:
             return false;
         }
