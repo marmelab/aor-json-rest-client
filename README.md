@@ -20,8 +20,8 @@ import data from './data';
  * data looks like:
  * {
  *   posts: [
- *     { id: 0, title, 'Hello, world!' },
- *     { id: 1, title, 'FooBar' },
+ *     { id: 0, title: 'Hello, world!' },
+ *     { id: 1, title: 'FooBar' },
  *   ],
  *   comments: [
  *     { id: 0, post_id: 0, author: 'John Doe', body: 'Sensational!' },
