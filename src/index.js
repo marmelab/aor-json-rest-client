@@ -30,8 +30,8 @@ function log(type, resource, params, response) {
  * import { jsonRestClient } from 'admin-on-rest';
  * const restClient = jsonRestClient({
  *   posts: [
- *     { id: 0, title, 'Hello, world!' },
- *     { id: 1, title, 'FooBar' },
+ *     { id: 0, title: 'Hello, world!' },
+ *     { id: 1, title: 'FooBar' },
  *   ],
  *   comments: [
  *     { id: 0, post_id: 0, author: 'John Doe', body: 'Sensational!' },
